@@ -1,13 +1,48 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import './index.css'
+import reportWebVitals from './reportWebVitals'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import RunMainContext from './components/MainContext'
+import Registration from './components/Registration'
+import Login from './components/Login'
+import AddQuiz from './components/AddQuiz'
+import PlayQuiz from './components/PlayQuiz'
+
+let allRoutes = createBrowserRouter([
+  {
+    path: '/',
+    element: <Login></Login>
+  },
+  {
+    path: '/register',
+    element : <Registration/>
+  },
+  
+  {
+    path: '/add-quize',
+    element : <AddQuiz></AddQuiz>
+  },
+  {
+    path: '/play-quize',
+    element : <PlayQuiz></PlayQuiz>
+  },
+])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <RunMainContext>
+
+    </RunMainContext>
+    {/* <MainContext.Provider> */}
+
+      <RouterProvider router={allRoutes} />
+
+    {/* </MainContext.Provider> */}
+
   </React.StrictMode>
 );
 
