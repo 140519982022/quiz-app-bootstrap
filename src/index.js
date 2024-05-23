@@ -36,12 +36,10 @@ root.render(
   <React.StrictMode>
     <RunMainContext>
 
-    </RunMainContext>
-    {/* <MainContext.Provider> */}
-
       <RouterProvider router={allRoutes} />
+    </RunMainContext>
 
-    {/* </MainContext.Provider> */}
+
 
   </React.StrictMode>
 );
