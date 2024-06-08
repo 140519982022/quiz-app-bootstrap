@@ -1,29 +1,65 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from './common/Header'
 import Footer from './common/Footer'
-import { getDatabase, ref, set } from "firebase/database";
+// import { getDatabase, ref, set } from "firebase/database";
 import app from '../FirebaseConfic'
-import { v4 as uuidv4 } from 'uuid';
+// import { v4 as uuidv4 } from 'uuid';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from 'react-router-dom';
 
 export default function Registration() {
+    let navigator = useNavigate()
+    const auth = getAuth(app);
+    let [user,setUser] = useState(null)
 
     let formHandler = (e) => {
+       
 
         e.preventDefault()
 
-        let resultObj = {
-            email: e.target.email.value,
-            password: e.target.password.value
-        }
+        let email = e.target.email.value
+        let password = e.target.password.value
 
-        let userId = uuidv4();
-        const db = getDatabase(app);
-        set(ref(db, 'registered_users/' + userId), resultObj);
-        toast.success("You Have Registered Successfully!!!!")
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Signed up 
+                const user = userCredential.user;
+                console.log(user)
+                setUser(user)
+                toast.success("You Have Registered Successfully!!!!")
+                // ...
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                toast.error(errorMessage)
+
+                // ..
+            });
+
+
+        // let resultObj = {
+        //     email: e.target.email.value,
+        //     password: e.target.password.value
+        // }
+        // let userId = uuidv4();
+        // const db = getDatabase(app);
+        // set(ref(db, 'registered_users/' + userId), resultObj);
+        // toast.success("You Have Registered Successfully!!!!")
 
     }
+    useEffect(()=>{
+
+        if (user !== null) {
+            setTimeout(()=>{
+                navigator('/')
+            },2000)
+            
+        }
+
+    },[user])
 
     return (
         <>

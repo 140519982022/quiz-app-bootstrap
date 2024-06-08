@@ -10,6 +10,7 @@ import Registration from './components/Registration'
 import Login from './components/Login'
 import AddQuiz from './components/AddQuiz'
 import PlayQuiz from './components/PlayQuiz'
+import ViewResult from './components/ViewResult'
 
 let allRoutes = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ let allRoutes = createBrowserRouter([
   {
     path: '/play-quize',
     element : <PlayQuiz></PlayQuiz>
+  },
+  {
+    path: '/view-result',
+    element : <ViewResult/>
   },
 ])
 
